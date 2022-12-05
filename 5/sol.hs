@@ -21,24 +21,24 @@ parseRow _ = []
 
 red :: Array Int String -> Maybe [String] -> Array Int String
 red acc (Just [times, start, dest]) =
-  acc // [(intStart, startStack), (intDest, destStack)]
+  acc // [(intStart, newStartStack), (intDest, newDestStack)]
   where
     intTimes = read times
     intStart = read start
     intDest = read dest
-    startStack = drop intTimes $ acc ! intStart
-    destStack = reverse (take intTimes (acc ! intStart)) ++ (acc ! intDest)
+    newStartStack = drop intTimes $ acc ! intStart
+    newDestStack = reverse (take intTimes (acc ! intStart)) ++ (acc ! intDest)
 red acc _ = acc
 
 red2 :: Array Int String -> Maybe [String] -> Array Int String
 red2 acc (Just [times, start, dest]) =
-  acc // [(intStart, startStack), (intDest, destStack)]
+  acc // [(intStart, newStartStack), (intDest, newDestStack)]
   where
     intTimes = read times
     intStart = read start
     intDest = read dest
-    startStack = drop intTimes $ acc ! intStart
-    destStack = take intTimes (acc ! intStart) ++ (acc ! intDest)
+    newStartStack = drop intTimes $ acc ! intStart
+    newDestStack = take intTimes (acc ! intStart) ++ (acc ! intDest)
 red2 acc _ = acc
 
 main :: IO ()
