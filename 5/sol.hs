@@ -44,11 +44,11 @@ red2 acc _ = acc
 main :: IO ()
 main = do
   contents <- readFile "input.txt"
-  let members = splitRegex (mkRegex "\n\n") contents
-  let stacks = map (parseRow . (" " ++)) $ wordsWhen (== '\n') $ head members
+  let (stackStr:actionStr:_) = splitRegex (mkRegex "\n\n") contents
+  let stacks = map (parseRow . (" " ++)) $ wordsWhen (== '\n') stackStr
   let actions =
         map (matchRegex (mkRegex "move ([0-9]*) from ([0-9]*) to ([0-9]*)")) $
-        wordsWhen (== '\n') $ head $ tail members
+        wordsWhen (== '\n') actionStr
   let accArray =
         array (1, 9) $
         zip [1 .. 9] $
