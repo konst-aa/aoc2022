@@ -6,8 +6,6 @@ import Data.List
 import qualified Data.Map as Map
 import System.IO
 
--- newtype Vals a b = (Node a b) | b
--- newtype Leaf n = Leaf n
 data Node a b
   = Branches a
   | Leaf b
