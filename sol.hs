@@ -19,27 +19,20 @@ parseRow :: String -> [Char]
 parseRow (sp:a:elem:b:xs) = elem : parseRow xs
 parseRow _ = []
 
-red :: Array Int String -> Maybe [String] -> Array Int String
-red acc (Just [times, start, dest]) =
+red ::
+     (String -> String)
+  -> Array Int String
+  -> Maybe [String]
+  -> Array Int String
+red act acc (Just [times, start, dest]) =
   acc // [(intStart, newStartStack), (intDest, newDestStack)]
   where
     intTimes = read times
     intStart = read start
     intDest = read dest
     newStartStack = drop intTimes $ acc ! intStart
-    newDestStack = reverse (take intTimes (acc ! intStart)) ++ (acc ! intDest)
-red acc _ = acc
-
-red2 :: Array Int String -> Maybe [String] -> Array Int String
-red2 acc (Just [times, start, dest]) =
-  acc // [(intStart, newStartStack), (intDest, newDestStack)]
-  where
-    intTimes = read times
-    intStart = read start
-    intDest = read dest
-    newStartStack = drop intTimes $ acc ! intStart
-    newDestStack = take intTimes (acc ! intStart) ++ (acc ! intDest)
-red2 acc _ = acc
+    newDestStack = act (take intTimes (acc ! intStart)) ++ (acc ! intDest)
+red act acc _ = acc
 
 main :: IO ()
 main = do
@@ -54,7 +47,7 @@ main = do
         zip [1 .. 9] $
         map (head . wordsWhen (== ' ')) $
         transpose $ take (length stacks - 1) stacks
-  let last = foldl red accArray actions
+  let last = foldl (red reverse) accArray actions
   print $ map head $ elems last
-  let last2 = foldl red2 accArray actions
+  let last2 = foldl (red id) accArray actions
   print $ map head $ elems last2
