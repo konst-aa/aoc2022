@@ -6,6 +6,8 @@ import Data.List
 import qualified Data.Map as Map
 import System.IO
 
+-- ill turn this into a stub one day
+-- these types wouldn't exist without the help of the fp discord :pray:
 data Node a b
   = Branches a
   | Leaf b
@@ -24,6 +26,8 @@ treeInsert (dir:rest) elem (FileTree (Branches tree)) =
   FileTree $
   Branches $ Map.insert dir (treeInsert rest elem $ tree Map.! dir) tree
 -}
+-- pretty sure this is On^2 but we get away with it
+-- idk monads so I can't look up elements
 treeInsert :: [String] -> FileTree -> FileTree -> FileTree
 treeInsert paths elem (FileTree (Leaf n)) = FileTree $ Leaf n
 treeInsert [loc] elem (FileTree (Branches tree)) =
@@ -61,8 +65,6 @@ flattener (FileTree (Branches dirs)) = (files, files : joined)
     files = sum $ map fst nextCall
     joined = concatMap snd nextCall
 
--- pretty sure this is Olog(n)n^2 but we get away with it
--- idk monads so I can't look up elements
 -- too tired
 p2 :: Int -> Int -> [Int] -> Int
 p2 n item (start:rest)
