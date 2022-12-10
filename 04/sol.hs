@@ -10,9 +10,7 @@ wordsWhen p s =
       where (w, s'') = break p s'
 
 mapper :: [[Int]] -> Bool
-mapper [[a1, a2], [b1, b2]] =
-  not ((a1 == b1) && a2 == b2) && (a1 >= b1 && a2 <= b2) ||
-  (a1 <= b1 && a2 >= b2)
+mapper [[a1, a2], [b1, b2]] = (a1 >= b1 && a2 <= b2) || (a1 <= b1 && a2 >= b2)
 mapper _ = False
 
 mapper2 :: [[Int]] -> Bool
