@@ -1,6 +1,3 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-
-import Data.Array (Array, (!), listArray)
 import Data.Char (digitToInt)
 import Data.List
 import System.IO
