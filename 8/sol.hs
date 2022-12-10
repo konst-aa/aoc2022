@@ -28,6 +28,7 @@ visible grid = zipWith4 zip4 rowsToRight rowsToLeft colsToDown colsToUp
     colsToUp = rot270 $ map toRight $ transpose grid
     colsToDown = rot270 $ map toLeft $ transpose grid
 
+-- ok idt i can come up with a n^2 sol for p2 so...
 toStop :: Int -> [Int] -> Int
 toStop n (x:xs)
   | n <= x = 1
@@ -38,7 +39,6 @@ taker :: [Int] -> [Int]
 taker [] = []
 taker (x:xs) = toStop x xs : taker xs
 
--- ok idt i can come up with a n^2 sol for p2 so...
 p2 :: [[Int]] -> [[(Int, Int, Int, Int)]]
 p2 grid = zipWith4 zip4 rowsToRight rowsToLeft colsToDown colsToUp
   where
